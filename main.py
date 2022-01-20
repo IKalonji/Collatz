@@ -1,3 +1,4 @@
+from pprint import pprint
 from sys import argv
 import sys
 import threading
@@ -38,7 +39,11 @@ if __name__ == "__main__":
         thread = threading.Thread(target=collatz_function, args=(number_to_solve, index_to_solve))
         thread.start()
     else:
-        print("work done")
-        print(solved_map)
+        while -1 in list_on_number_state:
+            #wait for all threads to finish
+            continue
+        else:
+            print("work done")
+            pprint(solved_map)
 
 
