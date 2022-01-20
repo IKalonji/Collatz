@@ -1,0 +1,2 @@
+# Collatz
+Collantz conjecture homework
