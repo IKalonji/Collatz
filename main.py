@@ -12,13 +12,12 @@ except (ValueError, TypeError) as error:
     sys.exit()
 
 '''Generated and state list setup'''
-generated_list_to_solve = [i for i in range(1,argument+1)]
-list_on_number_state = [0 for i in range(argument)]
 solved_map = {}
 
-def collatz_function(number, index):
+def collatz_function(number):
     '''Collatz Conjecture Method'''
-    print(f"Thread working on number at index {index}")
+    print(f"Thread working on number at index {number}")
+    number_to_map = number
     steps = 0
     while number != 1:
         if number % 2 == 0:
@@ -27,23 +26,14 @@ def collatz_function(number, index):
             number *= 3
             number += 1
         steps += 1
-    list_on_number_state[index] = steps
-    solved_map[index+1] = str(steps) + " steps"
-    print(f"Thread ended working on number at index {index}")
+    solved_map[number_to_map] = str(steps) + " steps"
+    print(f"Thread ended working on number at index {number}")
 
 if __name__ == "__main__":
-    while 0 in list_on_number_state[1:]:
-        index_to_solve = list_on_number_state.index(0)
-        list_on_number_state[index_to_solve] = -1
-        number_to_solve = generated_list_to_solve[index_to_solve]
-        thread = threading.Thread(target=collatz_function, args=(number_to_solve, index_to_solve))
-        thread.start()
-    else:
-        while -1 in list_on_number_state:
-            #wait for all threads to finish
-            continue
-        else:
-            print("work done")
-            pprint(solved_map)
+    
+    thread = threading.Thread(target=collatz_function(argument), args=(argument))
+    thread.start()
+    print("work done")
+    pprint(solved_map)
 
 
