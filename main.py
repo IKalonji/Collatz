@@ -16,7 +16,6 @@ solved_map = {}
 
 def collatz_function(number):
     '''Collatz Conjecture Method'''
-    print(f"Thread working on number at index {number}")
     number_to_map = number
     steps = 0
     while number != 1:
@@ -26,14 +25,12 @@ def collatz_function(number):
             number *= 3
             number += 1
         steps += 1
-    solved_map[number_to_map] = str(steps) + " steps"
-    print(f"Thread ended working on number at index {number}")
+    solved_map[number_to_map] = steps
 
 if __name__ == "__main__":
     
     thread = threading.Thread(target=collatz_function(argument), args=(argument))
     thread.start()
-    print("work done")
-    pprint(solved_map)
+    pprint(solved_map[argument])
 
 
